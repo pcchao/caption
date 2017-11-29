@@ -14,13 +14,17 @@ const cancelUpdater = () => {
 };
 
 const checkForUpdates = async () => {
-  const checking = await autoUpdater.checkForUpdates();
-  const { cancellationToken } = checking;
+  try {
+    const checking = await autoUpdater.checkForUpdates();
+    const { cancellationToken } = checking;
 
-  global.updater = {
-    cancellationToken,
-    onStartup: false,
-  };
+    global.updater = {
+      cancellationToken,
+      onStartup: false,
+    };
+  } catch (err) {
+    console.log("error while updating", err);
+  }
 };
 
 // IPC Events
